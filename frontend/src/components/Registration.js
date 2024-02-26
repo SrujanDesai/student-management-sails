@@ -78,7 +78,7 @@ const Registration = () => {
                     htmlFor="name"
                     className="block mb-2 text-sm font-medium  text-black"
                   >
-                    Name Your name
+                    Name 
                   </label>
                   <input
                     type="text"
