@@ -46,7 +46,7 @@ const ParentList = () => {
   const handleDeleteParent = async (id) => {
     try {
       await deleteParentById(id);
-      setParents(parents.filter((parent) => parent._id !== id));
+      setParents(parents.filter((parent) => parent.id !== id));
       toast.success("Parent deleted successfully!");
     } catch (error) {
       console.error("Error deleting parent:", error.message);
@@ -55,7 +55,7 @@ const ParentList = () => {
 
   const handleUpdateParent = async () => {
     try {
-      await updateParentById(updateData._id, updateData);
+      await updateParentById(updateData.id, updateData);
       fetchParents();
       setShowUpdateForm(false);
       toast.success("Parent updated successfully!");
@@ -119,7 +119,7 @@ const ParentList = () => {
             <div className="flex justify-center space-x-4">
               <button
                 className="bg-red-500 hover:bg-red-600 text-white font-semibold px-4 py-2 rounded"
-                onClick={() => handleDeleteParent(parent._id)}
+                onClick={() => handleDeleteParent(parent.id)}
               >
                 Delete
               </button>

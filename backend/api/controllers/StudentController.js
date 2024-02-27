@@ -78,20 +78,15 @@ module.exports = {
       const { name, email, password, std, school } = req.body;
       // Extract student ID from request parameters
       const studentId = req.params.id;
-      const student = await Student.findOne({ studentId });
+      const student = await Student.findOne({ id: studentId });
 
       // Return error response if student not found
       if (!student) {
-        return res.status(404).json({ success: success.SuccessFalse, message: messages.STUDENT_NOT_FOUND })
+        return res.status(404).json({ success: success.SuccessFalse, message: messages.STUDENT_NOT_FOUND });
       }
 
       // Update student record with provided data
       const updatedStudent = await Student.updateOne({ id: studentId }).set({ name, email, password, std, school });
-
-      // // Return error response if student not found
-      // if (!updatedStudent) {
-      //   return res.status(404).json({ success: success.SuccessFalse, message: messages.STUDENT_NOT_FOUND });
-      // }
 
       // Return success response with updated student data
       res.status(200).json({
@@ -111,20 +106,15 @@ module.exports = {
 
       // Extract student ID from request parameters
       const studentId = req.params.id;
-      const student = await Student.findOne({ studentId });
+      const student = await Student.findOne({ id: studentId });
 
       // Return error response if student not found
       if (!student) {
-        return res.status(404).json({ success: success.SuccessFalse, message: messages.STUDENT_NOT_FOUND })
+        return res.status(404).json({ success: success.SuccessFalse, message: messages.STUDENT_NOT_FOUND });
       }
 
       // Delete student record by ID
       const deletedStudent = await Student.destroyOne({ id: studentId });
-
-      // // Return error response if student not found
-      // if (!deletedStudent) {
-      //   return res.status(404).json({ success: success.SuccessFalse, message: messages.STUDENT_NOT_FOUND });
-      // }
 
       // Return success response if deletion is successful
       res.status(200).json({

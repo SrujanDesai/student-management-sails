@@ -25,7 +25,7 @@ const AddParent = () => {
       navigate("/parentlist");
       toast.success("Parent added successfully!");
     } catch (error) {
-      console.error("Error adding student:", error.message);
+      console.error("Error adding parent:", error.message);
     }
   };
 

@@ -24,12 +24,12 @@ module.exports = async function(req, res, proceed) {
 
     // Attach the admin object and role to the request object for further use
     req.admin = {
-      _id: admin._id,
+      id: admin.id,
       role: admin.role,
     };
 
     // Check if the admin ID matches the decoded admin ID
-    const adminId = req.admin._id;
+    const adminId = req.admin.id;
     if (adminId === decoded.adminId) {
       // Proceed to the next middleware or route handler
       return proceed();

@@ -14,7 +14,7 @@ const StudentList = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [updateData, setUpdateData] = useState({
-    _id: "",
+    id: "",
     name: "",
     email: "",
     std: "",
@@ -43,7 +43,7 @@ const StudentList = () => {
   const handleDeleteStudent = async (id) => {
     try {
       await deleteStudentById(id);
-      setStudents(students.filter((student) => student._id !== id));
+      setStudents(students.filter((student) => student.id !== id));
       toast.success("Student deleted successfully!");
     } catch (error) {
       console.error("Error deleting student:", error.message);
@@ -52,7 +52,7 @@ const StudentList = () => {
 
   const handleUpdateStudent = async () => {
     try {
-      await updateStudentById(updateData._id, updateData);
+      await updateStudentById(updateData.id, updateData);
       fetchStudents(); // Refresh student list after update
       setShowUpdateForm(false); // Hide the update form after successful update
       toast.success("Student updated successfully!");
@@ -70,7 +70,7 @@ const StudentList = () => {
     setUpdateData(student);
     setShowUpdateForm(true);
   };
-  
+
   const handleLogout = (e) => {
     e.preventDefault();
     localStorage.removeItem("token");
@@ -136,7 +136,7 @@ const StudentList = () => {
             <div className="flex justify-center space-x-4">
               <button
                 className="bg-red-500 hover:bg-red-600 text-white font-semibold px-4 py-2 rounded"
-                onClick={() => handleDeleteStudent(student._id)}
+                onClick={() => handleDeleteStudent(student.id)}
               >
                 Delete
               </button>

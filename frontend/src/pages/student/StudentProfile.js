@@ -49,7 +49,7 @@ const StudentProfile = () => {
       formData.append("std", studentData.std);
       formData.append("school", studentData.school);
 
-      await updateStudent(studentData._id, studentData);
+      await updateStudent(studentData.id, studentData);
       setIsEditing(false);
       toast.success("Profile updated successfully");
       // After successful save, refetch student data to update the profile picture
