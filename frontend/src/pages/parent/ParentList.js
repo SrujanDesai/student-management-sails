@@ -13,7 +13,7 @@ const ParentList = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [updateData, setUpdateData] = useState({
-    _id: "",
+    id: "",
     name: "",
     email: "",
     student: "",
