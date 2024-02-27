@@ -7,7 +7,7 @@
 
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const {messages, success} = require('../../config/locales/constant');
+const { messages, success } = require('../../config/locales/constant');
 
 module.exports = {
   // Create a new student record
@@ -75,19 +75,26 @@ module.exports = {
   // Update a student record by ID
   updateStudentById: async function (req, res) {
     try {
+      const { name, email, password, std, school } = req.body;
       // Extract student ID from request parameters
       const studentId = req.params.id;
-
-      // Update student record with provided data
-      const updatedStudent = await Student.updateOne({ id: studentId }).set(req.body);
+      const student = await Student.findOne({ studentId });
 
       // Return error response if student not found
-      if (!updatedStudent) {
-        return res.status(404).json({ success: success.SuccessFalse, message: messages.STUDENT_NOT_FOUND });
+      if (!student) {
+        return res.status(404).json({ success: success.SuccessFalse, message: messages.STUDENT_NOT_FOUND })
       }
 
+      // Update student record with provided data
+      const updatedStudent = await Student.updateOne({ id: studentId }).set({ name, email, password, std, school });
+
+      // // Return error response if student not found
+      // if (!updatedStudent) {
+      //   return res.status(404).json({ success: success.SuccessFalse, message: messages.STUDENT_NOT_FOUND });
+      // }
+
       // Return success response with updated student data
-      res.json({
+      res.status(200).json({
         success: success.SuccessTrue,
         message: 'Student updated successfully',
         data: updatedStudent,
@@ -101,16 +108,26 @@ module.exports = {
   // Delete a student record by ID
   deleteStudentById: async function (req, res) {
     try {
-      // Delete student record by ID
-      const deletedStudent = await Student.destroyOne({ id: req.params.id });
+
+      // Extract student ID from request parameters
+      const studentId = req.params.id;
+      const student = await Student.findOne({ studentId });
 
       // Return error response if student not found
-      if (!deletedStudent) {
-        return res.status(404).json({ success: success.SuccessFalse, message: messages.STUDENT_NOT_FOUND });
+      if (!student) {
+        return res.status(404).json({ success: success.SuccessFalse, message: messages.STUDENT_NOT_FOUND })
       }
 
+      // Delete student record by ID
+      const deletedStudent = await Student.destroyOne({ id: studentId });
+
+      // // Return error response if student not found
+      // if (!deletedStudent) {
+      //   return res.status(404).json({ success: success.SuccessFalse, message: messages.STUDENT_NOT_FOUND });
+      // }
+
       // Return success response if deletion is successful
-      res.json({
+      res.status(200).json({
         success: success.SuccessTrue,
         message: 'Student deleted successfully',
         data: deletedStudent,
